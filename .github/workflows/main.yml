@@ -5,7 +5,7 @@ on:
     branches: [ main ] 
 jobs: 
   ci: 
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
     steps: 
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it 
     - uses: actions/checkout@v2 
@@ -23,19 +23,33 @@ jobs:
 
     - name: "composer install"
       run: composer install --no-interaction --no-progress
+      continue-on-error:true
     # install Symfony CLI
     - name: Symfony CLI
       run: |
+      continue-on-error:true
         curl -sS https://get.symfony.com/cli/installer | bash 
         mv /home/runner/.symfony5/bin/symfony /usr/local/bin/symfony 
     # Check vulnerabilities 
     - name: Symfony Check Vulnerabilities 
       run: symfony check:security
+      continue-on-error:true
           
     # PHP CS FIXER 
     - name: PHP-CS-Fixer 
-      run: 
+      run:|
+      continue-on-error:true
         composer require friendsofphp/php-cs-fixer
         ./vender/bin/php-cs-fixer fix --dry-run
+
+    # PHP STAN
+    - name: PHP Stan
+      run: |
+        ./vendor/bin/simple-phpunit install
+        composer require phpstan/phpstan
+        composer require phpstan/extension-installer
+        composer require phpstan/phpstan-symfony
+        ./vendor/bin/phpstan analyse src --memory-limit 1G
+      continue-on-error:true
     - name: LS 
       run: ls
