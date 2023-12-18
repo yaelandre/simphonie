@@ -23,7 +23,7 @@ jobs:
 
     - name: "composer install"
       run: composer install --no-interaction --no-progress
-      continue-on-error:true
+      
     # install Symfony CLI
     - name: Symfony CLI
       run: |
@@ -31,8 +31,8 @@ jobs:
         curl -sS https://get.symfony.com/cli/installer | bash 
         mv /home/runner/.symfony5/bin/symfony /usr/local/bin/symfony 
     # Check vulnerabilities 
-    - name: Symfony Check Vulnerabilities 
-      run: symfony check:security
+    - name: Symfony5 Check Vulnerabilities 
+      run: symfony5 check:security
       continue-on-error:true
           
     # PHP CS FIXER 
