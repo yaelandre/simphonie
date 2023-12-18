@@ -14,5 +14,14 @@ jobs:
       uses: shivammathur/setup-php@v2 
       with: 
         extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, iconv, json, mbstring, pdo
+    -name: Cachemultiple paths
+      user: actions/cache@v3.3.2
+      with:
+        path:
+          vendor
+        key ${{ runner.os }}-${{ hashfiles('composer.lock') }}
+
+      - name "composer install"
+        run: composer install --no-interaction --no-progress
     - name: LS 
       run: ls
