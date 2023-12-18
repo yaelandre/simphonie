@@ -32,6 +32,10 @@ jobs:
     - name: Symfony Check Vulnerabilities 
       run: symfony check:security
           
-    
+    # PHP CS FIXER 
+    - name: PHP-CS-Fixer 
+      run: 
+        composer require friendsofphp/php-cs-fixer
+        ./vender/bin/php-cs-fixer fix --dry-run
     - name: LS 
       run: ls
