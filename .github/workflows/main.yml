@@ -23,7 +23,7 @@ jobs:
 
     - name: "composer install"
       run: composer install --no-interaction --no-progress
-      
+
     # install Symfony CLI
     - name: Symfony CLI
       run: |
