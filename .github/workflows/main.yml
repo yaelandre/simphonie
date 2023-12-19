@@ -27,20 +27,18 @@ jobs:
     # install Symfony CLI
     - name: Symfony CLI
       run: |
-      continue-on-error:true
         curl -sS https://get.symfony.com/cli/installer | bash 
         mv /home/runner/.symfony5/bin/symfony /usr/local/bin/symfony 
     # Check vulnerabilities 
     - name: Symfony5 Check Vulnerabilities 
       run: symfony5 check:security
-      continue-on-error:true
+      
           
     # PHP CS FIXER 
     - name: PHP-CS-Fixer 
         run:|
-      continue-on-error:true
         composer require friendsofphp/php-cs-fixer
-        ./vender/bin/php-cs-fixer fix --dry-run
+        ./vendor/bin/php-cs-fixer fix --dry-run
 
     # PHP STAN
     - name: PHP Stan
@@ -50,6 +48,6 @@ jobs:
         composer require phpstan/extension-installer
         composer require phpstan/phpstan-symfony
         ./vendor/bin/phpstan analyse src --memory-limit 1G
-      continue-on-error:true
+        continue-on-error:true
     - name: LS 
       run: ls
